@@ -24,3 +24,11 @@ class BaseTransaction(models.Model):
     status = models.PositiveSmallIntegerField(_('status'), choices=STATUS_CHOICES, default=PENDING)
 
     objects = InheritanceManager()
+
+    def get_date(self):
+        if self.end_dt is not None:
+            return self.end_dt
+        elif self.start_dt is not None:
+            return self.start_dt
+        else:
+            return self.creation_dt
